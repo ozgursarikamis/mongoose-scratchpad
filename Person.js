@@ -17,6 +17,12 @@ const storySchema = new Schema({
     fans: [{ type: Schema.Types.ObjectId, ref: 'Person' }]
 });
 
+storySchema.methods.sayHi = function() {
+    console.log("====================================");
+    console.log('Hi');
+    console.log("====================================");
+}
+
 const Story = mongoose.model('Story', storySchema);
 const Person = mongoose.model('Person', personSchema);
 
@@ -42,6 +48,7 @@ async function run() {
         title: 'Casino Royale',
         author: savedAuthor._id    // assign the _id from the person
     });
+    story1.sayHi();
     const savedStory = await story1.save();
     console.log('Story saved', savedStory);
 
