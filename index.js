@@ -11,8 +11,9 @@ run();
 
 async function run() {
     try {
-        const user = new User({ name: 'John', age: '20wedqeq' });
+        const user = new User({ name: 'John', age: 20 });
         user.name = 'Ozgur'
+        user.email = 'OZGUR@'
         user.hobbies = ['Reading', 'Writing', 'Coding'];
         user.address = {
             city: 'London',
