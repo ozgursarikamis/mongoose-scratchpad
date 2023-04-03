@@ -27,6 +27,10 @@ storySchema.statics.findByName = function(name) {
     return this.where({ title: new RegExp(name, 'i') });
 }
 
+storySchema.virtual('titleAuthor').get(function() {
+    return `${this.title} <${this.id}>`;
+});
+
 const Story = mongoose.model('Story', storySchema);
 const Person = mongoose.model('Person', personSchema);
 
@@ -46,26 +50,30 @@ async function run() {
       });
       
     const savedAuthor = await Person.create(author);
-    console.log('Author saved', savedAuthor);
+    // console.log('Author saved', savedAuthor);
 
     const story1 = new Story({
         title: 'Casino Royale',
         author: savedAuthor._id    // assign the _id from the person
     });
-    story1.sayHi();
+    // story1.sayHi();
     
-    console.log("====================================");
-    const storyWithCustomMethod = await Story.findByName('Casino');
-    console.log('storyWithCustomMetgod', storyWithCustomMethod);
-    console.log("====================================");
+    // console.log("====================================");
+    // const storyWithCustomMethod = await Story.findByName('Casino');
+    // console.log('storyWithCustomMetgod', storyWithCustomMethod);
+    // console.log("====================================");
 
     const savedStory = await story1.save();
     console.log('Story saved', savedStory);
 
-    const wholeStory = await Story
-        .findOne({ title: 'Casino Royale' })
-        .populate('author', 'name').exec(); // just populate the name
+    console.log("====================================");
+    const storyWithVirtual = await Story.findOne({ title: 'Casino Royale' });
+    console.log('storyWithVirtual', storyWithVirtual);
+    console.log('storyWithVirtual.titleAuthor === ', storyWithVirtual.titleAuthor);
+    // const wholeStory = await Story
+    //     .findOne({ title: 'Casino Royale' })
+    //     .populate('author', 'name').exec(); // just populate the name
 
-        console.log('Whole story', wholeStory);
-        console.log('Author', wholeStory.author.name);
+    //     console.log('Whole story', wholeStory);
+    //     console.log('Author', wholeStory.author.name);
 }
