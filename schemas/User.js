@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        immutable: true
     },
     updatedAt: Date,
     bestFriend: mongoose.SchemaTypes.ObjectId,

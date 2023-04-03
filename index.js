@@ -21,6 +21,7 @@ async function run() {
             postCode: 'W1 1AA'
         };
         user.bestFriend = '5e9b1b5b1c9d440000a1e1b1';
+        user.createdAt = new Date();
         await user.save();
         // or:
         // await User.create({ name: 'John', age: 20 });
