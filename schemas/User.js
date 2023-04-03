@@ -14,7 +14,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         lowercase: true,
     },
-    createdAt: Date,
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
     updatedAt: Date,
     bestFriend: mongoose.SchemaTypes.ObjectId,
     hobbies: [String],
