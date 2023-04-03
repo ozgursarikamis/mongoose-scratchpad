@@ -8,7 +8,11 @@ const addressSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
     name: String,
-    age: Number,
+    age: {
+        type: Number,
+        min: 1,
+        max: 65,
+    },
     email: {
         type: String,
         required: true,
