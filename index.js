@@ -16,6 +16,9 @@ async function run() {
         console.log("====================================");
         const user2 = await User.find({ name: 'Halime', age: 25 });
         console.log(user2);
+
+        await User.deleteMany({ name: 'Ozgur' })
+        .gte('age', 20).where('address.city').eq('London');
     } catch (error) {
         console.log();
         console.log('Error saving user', error.message);
