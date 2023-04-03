@@ -23,6 +23,10 @@ storySchema.methods.sayHi = function() {
     console.log("====================================");
 }
 
+storySchema.statics.findByName = function(name) {
+    return this.where({ title: new RegExp(name, 'i') });
+}
+
 const Story = mongoose.model('Story', storySchema);
 const Person = mongoose.model('Person', personSchema);
 
@@ -49,6 +53,12 @@ async function run() {
         author: savedAuthor._id    // assign the _id from the person
     });
     story1.sayHi();
+    
+    console.log("====================================");
+    const storyWithCustomMethod = await Story.findByName('Casino');
+    console.log('storyWithCustomMetgod', storyWithCustomMethod);
+    console.log("====================================");
+
     const savedStory = await story1.save();
     console.log('Story saved', savedStory);
 
