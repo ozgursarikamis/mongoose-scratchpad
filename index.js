@@ -25,6 +25,8 @@ async function run() {
         // await User.create({ name: 'John', age: 20 });
         console.log('User saved', user);
     } catch (error) {
-        console.log('Error saving user', error);
+        console.log();
+        console.log('Error saving user', error.message);
+        console.log();
     }
 }
