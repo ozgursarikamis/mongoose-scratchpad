@@ -11,7 +11,7 @@ const personSchema = new Schema({
 const storySchema = new Schema({
     author: {
         type: Schema.Types.ObjectId,
-        // ref: 'Person'
+        ref: 'Person'
     },
     title: String,
     fans: [{ type: Schema.Types.ObjectId, ref: 'Person' }]
@@ -44,4 +44,11 @@ async function run() {
     });
     const savedStory = await story1.save();
     console.log('Story saved', savedStory);
+
+    const wholeStory = await Story
+        .findOne({ title: 'Casino Royale' })
+        .populate('author').exec();
+
+        console.log('Whole story', wholeStory);
+        console.log('Author', wholeStory.author.name);
 }
