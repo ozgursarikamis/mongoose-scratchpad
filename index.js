@@ -10,17 +10,21 @@ mongoose.connect('mongodb://localhost:27017/test').then(() => {
 run();
 
 async function run() {
-    const user = new User({ name: 'John', age: 20 });
-    user.name = 'Ozgur'
-    user.hobbies = ['Reading', 'Writing', 'Coding'];
-    user.address = {
-        city: 'London',
-        country: 'United Kingdom',
-        postCode: 'W1 1AA'
-    };
-    user.bestFriend = '5e9b1b5b1c9d440000a1e1b1';
-    await user.save();
-    // or:
-    // await User.create({ name: 'John', age: 20 });
-    console.log('User saved', user);
+    try {
+        const user = new User({ name: 'John', age: '20wedqeq' });
+        user.name = 'Ozgur'
+        user.hobbies = ['Reading', 'Writing', 'Coding'];
+        user.address = {
+            city: 'London',
+            country: 'United Kingdom',
+            postCode: 'W1 1AA'
+        };
+        user.bestFriend = '5e9b1b5b1c9d440000a1e1b1';
+        await user.save();
+        // or:
+        // await User.create({ name: 'John', age: 20 });
+        console.log('User saved', user);
+    } catch (error) {
+        console.log('Error saving user', error);
+    }
 }
