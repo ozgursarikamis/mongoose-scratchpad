@@ -47,7 +47,7 @@ async function run() {
 
     const wholeStory = await Story
         .findOne({ title: 'Casino Royale' })
-        .populate('author').exec();
+        .populate('author', 'name').exec(); // just populate the name
 
         console.log('Whole story', wholeStory);
         console.log('Author', wholeStory.author.name);
