@@ -37,4 +37,11 @@ async function run() {
       
     const savedAuthor = await Person.create(author);
     console.log('Author saved', savedAuthor);
+
+    const story1 = new Story({
+        title: 'Casino Royale',
+        author: savedAuthor._id    // assign the _id from the person
+    });
+    const savedStory = await story1.save();
+    console.log('Story saved', savedStory);
 }
