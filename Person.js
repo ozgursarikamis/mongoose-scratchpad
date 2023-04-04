@@ -14,7 +14,10 @@ const storySchema = new Schema({
         ref: 'Person'
     },
     title: String,
-    fans: [{ type: Schema.Types.ObjectId, ref: 'Person' }]
+    fans: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
+    updatedAt: {
+        type: Date
+    },
 });
 
 storySchema.methods.sayHi = function() {
@@ -29,6 +32,15 @@ storySchema.statics.findByName = function(name) {
 
 storySchema.virtual('titleAuthor').get(function() {
     return `${this.title} <${this.id}>`;
+});
+
+// MIDDLEWARES:
+storySchema.pre('save', function(next) {
+    console.log("====================================");
+    console.log('MIDDLEWARE: Pre save');
+    console.log("====================================");
+    this.updatedAt = Date.now();
+    next();
 });
 
 const Story = mongoose.model('Story', storySchema);
@@ -68,8 +80,8 @@ async function run() {
 
     console.log("====================================");
     const storyWithVirtual = await Story.findOne({ title: 'Casino Royale' });
-    console.log('storyWithVirtual', storyWithVirtual);
-    console.log('storyWithVirtual.titleAuthor === ', storyWithVirtual.titleAuthor);
+    // console.log('storyWithVirtual', storyWithVirtual);
+    // console.log('storyWithVirtual.titleAuthor === ', storyWithVirtual.titleAuthor);
     // const wholeStory = await Story
     //     .findOne({ title: 'Casino Royale' })
     //     .populate('author', 'name').exec(); // just populate the name
