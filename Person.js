@@ -43,6 +43,13 @@ storySchema.pre('save', function(next) {
     next();
 });
 
+storySchema.post('save', function(doc, next) {
+    console.log("====================================");
+    console.log('MIDDLEWARE: Post save');
+    console.log("====================================");
+    next();
+})
+
 const Story = mongoose.model('Story', storySchema);
 const Person = mongoose.model('Person', personSchema);
 
